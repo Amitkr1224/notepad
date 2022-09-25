@@ -5,6 +5,10 @@
   /* color: antiquewhite; */
 }
 
+/* ::selection {
+  color: red;
+  background: yellow;
+} */
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
@@ -45,9 +49,20 @@
   /* text-align: center; */
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 /* Text Area */
+#input-title {
+  /* justify-content: center; */
+  text-align: center;
+  padding: 8px;
+  width: 30%;
+  border-top: 0px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-bottom: 2px solid rgba(136, 136, 136, 0.5);
+}
 #textarea {
   outline: none;
   border-top: 0px solid transparent;

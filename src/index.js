@@ -1,24 +1,39 @@
 let textArea = document.getElementById("textarea");
+let title = document.getElementById("input-title");
 let saveBtn = document.getElementById("save-btn");
 let copyBtn = document.getElementById("copy-btn");
 let boldBtn = document.getElementById("bold-btn");
 let underlineBtn = document.getElementById("under-btn");
 
+//! Variables and Array
 let notes = [];
-let notesToAdd = "";
+let notesToAdd = {};
+let textAreaInput = "";
+let titleInput = "";
+
+//! Input Handler
 textArea.addEventListener("change", (e) => {
-  // console.log(e.target.value);
-  notesToAdd = e.target.value.trim();
-  // console.log(notesToAdd);
+  textAreaInput = e.target.value.trim();
+});
+title.addEventListener("change", (e) => {
+  titleInput = e.target.value.trim();
+  // console.log(titleInput);
 });
 
 //! Save
 function saveNote() {
   // console.log(notes);
-  if (notesToAdd.length > 0) {
+  if (textAreaInput.length > 0 && titleInput.length > 0) {
+    notesToAdd = {
+      title: titleInput,
+      summary: textAreaInput,
+    };
     notes.push(notesToAdd);
-    document.getElementById("textarea").value = "";
+    textArea.value = "";
+    title.value = "";
     display();
+  } else if (titleInput.length === 0) {
+    alert("Enter Title");
   } else {
     alert("Textarea is Empty");
   }
@@ -29,8 +44,8 @@ saveBtn.addEventListener("click", saveNote);
 copyBtn.addEventListener("click", () => {
   textArea.select();
   // navigator.clipboard
-    // .writeText(textArea.value)
-    // .then((clipText) => console.log(clipText));
+  // .writeText(textArea.value)
+  // .then((clipText) => console.log(clipText));
   // let selectedText = document.getSelection().toString();
   // console.log(selectedText);
   document.execCommand("copy");
@@ -39,17 +54,19 @@ copyBtn.addEventListener("click", () => {
 //! Bold
 function boldFunc() {
   let selectedText = window.getSelection().toString();
+  console.log(selectedText);
   if (selectedText.trim() === "") {
     alert("Text Not Selected");
   } else if (selectedText.includes("<b>")) {
     let newText = selectedText.replace("<b>", "");
     newText = newText.replace("</b>", "");
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    // textArea.value = textArea.value.replace(selectedText, newText);
+    notesToAdd = newText;
   } else {
     let newText = `<b>${selectedText}</b>`;
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    // textArea.value = textArea.value.replace(selectedText, newText);
+    // textArea.selectedText.style.color = "red";
+    textAreaInput = newText;
   }
 }
 
@@ -59,18 +76,18 @@ boldBtn.addEventListener("click", boldFunc);
 function underLineFunc() {
   // console.log(window.getSelection().toString());
   let selectedText = window.getSelection().toString();
-
+  console.log(selectedText);
   if (selectedText === "") {
     alert("Text Not Selected");
   } else if (selectedText.includes("<u>")) {
     let newText = selectedText.replace("<u>", "");
     newText = newText.replace("</u>", "");
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    // textArea.value = textArea.value.replace(selectedText, newText);
+    textAreaInput = newText;
   } else {
     let newText = `<u>${selectedText}</u>`;
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    // textArea.value = textArea.value.replace(selectedText, newText);
+    textAreaInput = newText;
   }
 }
 
@@ -101,13 +118,19 @@ textArea.addEventListener("keyup", (event) => {
 //! Switch Button Handle
 function switchCase(index) {
   // console.log("Hello", num);
-  let storedValue = textArea.value;
-  if (storedValue === "") {
+  let storedtextAreaValue = textArea.value;
+  let storedtitleValue = title.value;
+  if (storedtextAreaValue === "" && storedtitleValue === "") {
     alert("There is No Text in Textbox");
   } else {
-    textArea.value = notes[index];
-    notesToAdd = textArea.value;
-    notes[index] = storedValue;
+    textArea.value = notes[index].summary;
+    title.value = notes[index].title;
+    // notesToAdd = textArea.value;
+    let newObj = {
+      title: storedtitleValue,
+      summary: storedtextAreaValue,
+    };
+    notes[index] = newObj;
     display();
   }
 }
@@ -118,7 +141,8 @@ function display() {
   notes.forEach((element, index) => {
     notesToBeDisplay += `
     <div class="card">
-    <p>${element}</p>
+    <span>${element.title}</span>
+    <p>${element.summary}</p>
     <button id="switch-btn" value="${index}" onclick="switchCase(this.value)" class="style-btn">Switch</button>
     </div>`;
   });
