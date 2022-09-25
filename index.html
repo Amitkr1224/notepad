@@ -4,12 +4,15 @@
     <title>NotePad</title>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./src/styles.css" />
+    <link
+      rel="icon"
+      href="https://www.iconbunny.com/icons/media/catalog/product/3/1/3150.12-notepad-and-pencil-icon-iconbunny.jpg"
+    />
   </head>
 
   <body>
-    <div class="heading"><h1>Create Notes</h1></div>
     <div class="container">
-      <!-- <label>Write Notes</label> -->
+      <input placeholder="Title..." id="input-title" type="text" />
       <textarea placeholder="Write Here..." id="textarea" value=""></textarea>
     </div>
 
@@ -19,13 +22,11 @@
       <button id="bold-btn" class="style-btn">Bold</button>
       <button id="under-btn" class="style-btn">Underline</button>
     </div>
-    <div class="notes-added">
-      <h1>Your Notes</h1>
-    </div>
-    <!-- <hr /> -->
     <div id="display-notes"></div>
-    <div id="no-notes"></div>
 
+    <div id="overlay" onclick="off()">
+      <div id="text"></div>
+    </div>
     <script src="src/index.js"></script>
   </body>
 </html>

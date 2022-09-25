@@ -1,26 +1,40 @@
 let textArea = document.getElementById("textarea");
+let title = document.getElementById("input-title");
 let saveBtn = document.getElementById("save-btn");
 let copyBtn = document.getElementById("copy-btn");
 let boldBtn = document.getElementById("bold-btn");
 let underlineBtn = document.getElementById("under-btn");
 
+//! Variables and Array
 let notes = [];
-let notesToAdd = "";
+let notesToAdd = {};
+let textAreaInput = "";
+let titleInput = "";
+
+//! Input Handler
 textArea.addEventListener("change", (e) => {
-  // console.log(e.target.value);
-  notesToAdd = e.target.value.trim();
-  // console.log(notesToAdd);
+  textAreaInput = e.target.value.trim();
 });
 
-//! Save
+title.addEventListener("change", (e) => {
+  titleInput = e.target.value.trim();
+});
+
+//! Save Button handler
 function saveNote() {
-  // console.log(notes);
-  if (notesToAdd.length > 0) {
+  if (textAreaInput.length > 0 && titleInput.length > 0) {
+    notesToAdd = {
+      title: titleInput,
+      summary: textAreaInput,
+    };
     notes.push(notesToAdd);
-    document.getElementById("textarea").value = "";
+    textArea.value = "";
+    title.value = "";
     display();
+  } else if (titleInput.length === 0) {
+    alert("❌ Title is Empty ❌");
   } else {
-    alert("Textarea is Empty");
+    alert("❌ Textarea is Empty ❌");
   }
 }
 saveBtn.addEventListener("click", saveNote);
@@ -29,8 +43,8 @@ saveBtn.addEventListener("click", saveNote);
 copyBtn.addEventListener("click", () => {
   textArea.select();
   // navigator.clipboard
-    // .writeText(textArea.value)
-    // .then((clipText) => console.log(clipText));
+  // .writeText(textArea.value)
+  // .then((clipText) => console.log(clipText));
   // let selectedText = document.getSelection().toString();
   // console.log(selectedText);
   document.execCommand("copy");
@@ -40,16 +54,17 @@ copyBtn.addEventListener("click", () => {
 function boldFunc() {
   let selectedText = window.getSelection().toString();
   if (selectedText.trim() === "") {
-    alert("Text Not Selected");
+    alert("❌ Text Not Selected ❌");
   } else if (selectedText.includes("<b>")) {
     let newText = selectedText.replace("<b>", "");
     newText = newText.replace("</b>", "");
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // notesToAdd = newText;
   } else {
     let newText = `<b>${selectedText}</b>`;
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    console.log(newText);
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // textAreaInput = newText;
   }
 }
 
@@ -57,20 +72,19 @@ boldBtn.addEventListener("click", boldFunc);
 
 //! UnderLine
 function underLineFunc() {
-  // console.log(window.getSelection().toString());
   let selectedText = window.getSelection().toString();
-
+  // console.log(selectedText);
   if (selectedText === "") {
-    alert("Text Not Selected");
+    alert("❌ Text Not Selected ❌");
   } else if (selectedText.includes("<u>")) {
     let newText = selectedText.replace("<u>", "");
     newText = newText.replace("</u>", "");
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // textAreaInput = newText;
   } else {
     let newText = `<u>${selectedText}</u>`;
-    textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = textArea.value;
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // textAreaInput = newText;
   }
 }
 
@@ -100,38 +114,45 @@ textArea.addEventListener("keyup", (event) => {
 
 //! Switch Button Handle
 function switchCase(index) {
-  // console.log("Hello", num);
-  let storedValue = textArea.value;
-  if (storedValue === "") {
-    alert("There is No Text in Textbox");
-  } else {
-    textArea.value = notes[index];
-    notesToAdd = textArea.value;
-    notes[index] = storedValue;
-    display();
-  }
+  let title = notes[index].title;
+  let summary = notes[index].summary;
+  myFunction(title, summary);
+}
+
+function myFunction(title, summary) {
+  var popup = document.querySelector("#text");
+  let popUpData = `
+  <p id="overlay-p">${title} <span>:</span></p>
+  <p id="overlay-s">${summary}</p>
+  `;
+  popup.innerHTML = popUpData;
+  on();
 }
 
 //! Notes Added Displayed
+function truncate(str, n) {
+  return str?.length > n ? str.substr(0, n - 1) + " ..." : str;
+}
+
 function display() {
   let notesToBeDisplay = "";
   notes.forEach((element, index) => {
     notesToBeDisplay += `
-    <div class="card">
-    <p>${element}</p>
-    <button id="switch-btn" value="${index}" onclick="switchCase(this.value)" class="style-btn">Switch</button>
+    <div class="card" id=${index} onclick="switchCase(this.id)" >
+    <span>${element.title}</span>
+    <p>${truncate(element.summary, 50)}</p>
     </div>`;
   });
-  // }
 
   if (notes.length !== 0) {
     document.getElementById("display-notes").innerHTML = notesToBeDisplay;
-    document.getElementById("no-notes").innerHTML = "";
   }
 }
 
-if (notes.length === 0) {
-  document.getElementById(
-    "no-notes"
-  ).innerHTML = `<h3 class="no-notes">Add Some Notes...</h3>`;
+//! Overlay
+function on() {
+  document.getElementById("overlay").style.display = "block";
+}
+function off() {
+  document.getElementById("overlay").style.display = "none";
 }
