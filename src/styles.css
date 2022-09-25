@@ -1,14 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  /* color: antiquewhite; */
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background: #88abff;
 }
 
-/* ::selection {
-  color: red;
-  background: yellow;
-} */
+.container {
+  margin-top: 5%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+/* Text Area */
+#input-title {
+  padding: 8px;
+  width: 70%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid rgb(136, 171, 255, 0.5);
+  margin: auto;
+}
+#textarea {
+  outline: none;
+  border: none;
+  line-height: 17px;
+  margin: auto;
+  width: 80%;
+  min-height: 17vh;
+  max-width: 70vw;
+  padding: 15px;
+  color: #888;
+  font-size: 1rem;
+}
+
+/* Button */
+.btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+.style-btn {
+  padding: 8px;
+  margin: 0px 3px 5px 0px;
+  background-color: transparent;
+  border-radius: 0px 5px;
+  background-color: #fff;
+  border: none;
+  color: #888888;
+}
+
+.style-btn:hover {
+  cursor: pointer;
+  background-color: rgb(207, 205, 205);
+  border: none;
+}
+
+/* Display Notes in Card Format */
+#display-notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  padding: 15px;
+  margin-top: 10px;
+  width: 30%;
+  overflow: hidden;
+  border-radius: 0px 5px 0px 5px;
+  background-color: #fff;
+}
+.card p {
+  font-size: 13px;
+  line-height: 18px;
+  margin-top: 8px;
+  color: rgb(59, 58, 58);
+}
+.card span {
+  font-weight: 300;
+  text-decoration: underline;
+  font-size: 0.9rem;
+  color: black;
+}
+.card:hover {
+  box-shadow: 2px 1px 2px #f3f1f1;
+}
+
+/* Notes not Added  */
+.no-notes {
+  margin-top: 10px;
+  color: #888888;
+  text-indent: 20px;
+}
+
+/* Overlay */
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /*Hidden by default*/
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+#text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  color: rgb(244, 242, 242);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+#text #overlay-p {
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: 100;
+}
+
+#text #overlay-s {
+  margin-top: 10px;
+  text-indent: 20px;
+  font-size: 1.3rem;
+}
+
+/* Selection */
+::selection {
+  color: #fff;
+  background: #618cf8;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
@@ -22,8 +155,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: cornflowerblue;
-  /* border-radius: 5px; */
+  background: rgb(151, 152, 155);
 }
 
 /* Handle on hover */
@@ -31,150 +163,21 @@
   background: #888;
 }
 
-/* Heading */
-.heading {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0px 10px 0px;
-}
-.heading > h1 {
-  /* font-family: Arial, Helvetica, sans-serif;
-   */
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  color: cornflowerblue;
-}
-
-.container {
-  /* text-align: center; */
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-/* Text Area */
-#input-title {
-  /* justify-content: center; */
-  text-align: center;
-  padding: 8px;
-  width: 30%;
-  border-top: 0px solid transparent;
-  border-left: 0px solid transparent;
-  border-right: 0px solid transparent;
-  border-bottom: 2px solid rgba(136, 136, 136, 0.5);
-}
-#textarea {
-  outline: none;
-  border-top: 0px solid transparent;
-  border-left: 0px solid transparent;
-  border-right: 0px solid transparent;
-  border-bottom: 2px solid rgba(136, 136, 136, 0.5);
-  line-height: 20px;
-  min-width: 70vw;
-  /* max-width: 90vw; */
-  min-height: 17vh;
-  /* max-height: 20vh; */
-  padding: 20px;
-  color: #888;
-  font-size: 1.1rem;
-}
-
-#textarea:focus {
-  border-bottom: 2px solid rgba(220, 20, 60, 0.2);
-  border-radius: 10px;
-}
-
-/* Button */
-.btn {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  padding: 20px;
-}
-.style-btn {
-  padding: 8px;
-  margin: 0px 3px 5px 0px;
-  background-color: transparent;
-  border: 1px solid #888;
-  /* border-top-right-radius: 15px; */
-  border-radius: 10px 2px;
-}
-
-.style-btn:hover {
-  cursor: pointer;
-  /* color: red; */
-  background-color: rgb(124, 155, 214);
-  border: none;
-  color: white;
-  transform: scale(1.1);
-  transition: transform ease-in-out 0.5s, background-color ease-in 0.1s;
-}
-
-/* Your Notes Header */
-.notes-added {
-  padding: 10px;
-  margin: 0px 15px;
-  border-bottom: 2px solid rgba(136, 136, 136, 0.5);
-}
-.notes-added > h1 {
-  color: cornflowerblue;
-  /* text-shadow: 2px 2px 2px rgba(136, 136, 136, 0.5); */
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Display Notes in Card Format */
-#display-notes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.card {
-  flex-wrap: wrap;
-  padding: 10px;
-  margin-top: 10px;
-  width: 30%;
-  overflow: hidden;
-  border-radius: 0px 10px 0px 10px;
-  border: 1px solid rgba(136, 136, 136, 0.5);
-}
-.card p {
-  font-size: 14px;
-  line-height: 18px;
-}
-.card > button {
-  margin-top: 10px;
-  /* width: 40%; */
-}
-.card:hover {
-  box-shadow: 2px 1px 5px #888888;
-  /* transform: translateY(-1px); */
-  transform: scale(1.05);
-  transition: transform ease-in 0.3s;
-}
-
-/* Notes not Added  */
-.no-notes {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  margin-top: 10px;
-  color: #888888;
-  text-indent: 20px;
-}
-
 /* Media Query */
 @media only screen and (max-width: 350px) {
   .heading > h1 {
     font-size: 1.2rem;
   }
-
+  #input-title {
+    font-size: 10px;
+  }
   #textarea {
     line-height: 10px;
     padding: 10px;
     color: #888;
     font-size: 1rem;
-    max-width: 5vw;
-    min-height: 10vh;
+    /* max-width: 5vw; */
+    min-height: 8vh;
   }
   .style-btn {
     font-size: 0.7rem;
@@ -188,11 +191,14 @@
   }
   .card {
     padding: 5px;
-    /* font-size: 0.9rem; */
+  }
+  #text #overlay-s {
+    font-size: 10px;
+    line-height: 1.1rem;
   }
 }
 
-@media only screen and (min-width: 351px) and (max-width: 450px) {
+@media only screen and (min-width: 350px) and (max-width: 450px) {
   .heading > h1 {
     font-size: 1.4rem;
   }
@@ -202,7 +208,7 @@
     padding: 10px;
     color: #888;
     font-size: 1rem;
-    max-width: 5vw;
+    /* max-width: 5vw; */
     min-height: 10vh;
   }
   .style-btn {
@@ -215,5 +221,9 @@
   }
   .no-notes {
     font-size: 1rem;
+  }
+  #text #overlay-s {
+    font-size: 12px;
+    line-height: 1.2rem;
   }
 }

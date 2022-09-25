@@ -15,14 +15,13 @@ let titleInput = "";
 textArea.addEventListener("change", (e) => {
   textAreaInput = e.target.value.trim();
 });
+
 title.addEventListener("change", (e) => {
   titleInput = e.target.value.trim();
-  // console.log(titleInput);
 });
 
-//! Save
+//! Save Button handler
 function saveNote() {
-  // console.log(notes);
   if (textAreaInput.length > 0 && titleInput.length > 0) {
     notesToAdd = {
       title: titleInput,
@@ -33,9 +32,9 @@ function saveNote() {
     title.value = "";
     display();
   } else if (titleInput.length === 0) {
-    alert("Enter Title");
+    alert("❌ Title is Empty ❌");
   } else {
-    alert("Textarea is Empty");
+    alert("❌ Textarea is Empty ❌");
   }
 }
 saveBtn.addEventListener("click", saveNote);
@@ -54,19 +53,18 @@ copyBtn.addEventListener("click", () => {
 //! Bold
 function boldFunc() {
   let selectedText = window.getSelection().toString();
-  console.log(selectedText);
   if (selectedText.trim() === "") {
-    alert("Text Not Selected");
+    alert("❌ Text Not Selected ❌");
   } else if (selectedText.includes("<b>")) {
     let newText = selectedText.replace("<b>", "");
     newText = newText.replace("</b>", "");
-    // textArea.value = textArea.value.replace(selectedText, newText);
-    notesToAdd = newText;
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // notesToAdd = newText;
   } else {
     let newText = `<b>${selectedText}</b>`;
-    // textArea.value = textArea.value.replace(selectedText, newText);
-    // textArea.selectedText.style.color = "red";
-    textAreaInput = newText;
+    console.log(newText);
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // textAreaInput = newText;
   }
 }
 
@@ -74,20 +72,19 @@ boldBtn.addEventListener("click", boldFunc);
 
 //! UnderLine
 function underLineFunc() {
-  // console.log(window.getSelection().toString());
   let selectedText = window.getSelection().toString();
-  console.log(selectedText);
+  // console.log(selectedText);
   if (selectedText === "") {
-    alert("Text Not Selected");
+    alert("❌ Text Not Selected ❌");
   } else if (selectedText.includes("<u>")) {
     let newText = selectedText.replace("<u>", "");
     newText = newText.replace("</u>", "");
-    // textArea.value = textArea.value.replace(selectedText, newText);
-    textAreaInput = newText;
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // textAreaInput = newText;
   } else {
     let newText = `<u>${selectedText}</u>`;
-    // textArea.value = textArea.value.replace(selectedText, newText);
-    textAreaInput = newText;
+    textAreaInput = textAreaInput.replace(selectedText, newText);
+    // textAreaInput = newText;
   }
 }
 
@@ -117,45 +114,45 @@ textArea.addEventListener("keyup", (event) => {
 
 //! Switch Button Handle
 function switchCase(index) {
-  // console.log("Hello", num);
-  let storedtextAreaValue = textArea.value;
-  let storedtitleValue = title.value;
-  if (storedtextAreaValue === "" && storedtitleValue === "") {
-    alert("There is No Text in Textbox");
-  } else {
-    textArea.value = notes[index].summary;
-    title.value = notes[index].title;
-    // notesToAdd = textArea.value;
-    let newObj = {
-      title: storedtitleValue,
-      summary: storedtextAreaValue,
-    };
-    notes[index] = newObj;
-    display();
-  }
+  let title = notes[index].title;
+  let summary = notes[index].summary;
+  myFunction(title, summary);
+}
+
+function myFunction(title, summary) {
+  var popup = document.querySelector("#text");
+  let popUpData = `
+  <p id="overlay-p">${title} <span>:</span></p>
+  <p id="overlay-s">${summary}</p>
+  `;
+  popup.innerHTML = popUpData;
+  on();
 }
 
 //! Notes Added Displayed
+function truncate(str, n) {
+  return str?.length > n ? str.substr(0, n - 1) + " ..." : str;
+}
+
 function display() {
   let notesToBeDisplay = "";
   notes.forEach((element, index) => {
     notesToBeDisplay += `
-    <div class="card">
+    <div class="card" id=${index} onclick="switchCase(this.id)" >
     <span>${element.title}</span>
-    <p>${element.summary}</p>
-    <button id="switch-btn" value="${index}" onclick="switchCase(this.value)" class="style-btn">Switch</button>
+    <p>${truncate(element.summary, 50)}</p>
     </div>`;
   });
-  // }
 
   if (notes.length !== 0) {
     document.getElementById("display-notes").innerHTML = notesToBeDisplay;
-    document.getElementById("no-notes").innerHTML = "";
   }
 }
 
-if (notes.length === 0) {
-  document.getElementById(
-    "no-notes"
-  ).innerHTML = `<h3 class="no-notes">Add Some Notes...</h3>`;
+//! Overlay
+function on() {
+  document.getElementById("overlay").style.display = "block";
+}
+function off() {
+  document.getElementById("overlay").style.display = "none";
 }
