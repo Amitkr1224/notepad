@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NotePad</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+
+  <body>
+    <div class="heading"><h1>Create Notes</h1></div>
+    <div class="container">
+      <!-- <label>Write Notes</label> -->
+      <textarea placeholder="Write Here..." id="textarea" value=""></textarea>
+    </div>
+
+    <div class="btn">
+      <button id="save-btn" class="style-btn">Save</button>
+      <button id="copy-btn" class="style-btn">Copy</button>
+      <button id="bold-btn" class="style-btn">Bold</button>
+      <button id="under-btn" class="style-btn">Underline</button>
+    </div>
+    <div class="notes-added">
+      <h1>Your Notes</h1>
+    </div>
+    <!-- <hr /> -->
+    <div id="display-notes"></div>
+    <div id="no-notes"></div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>

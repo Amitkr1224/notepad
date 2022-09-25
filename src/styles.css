@@ -1,0 +1,204 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* color: antiquewhite; */
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: cornflowerblue;
+  /* border-radius: 5px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+/* Heading */
+.heading {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0px 10px 0px;
+}
+.heading > h1 {
+  /* font-family: Arial, Helvetica, sans-serif;
+   */
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: cornflowerblue;
+}
+
+.container {
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+}
+
+/* Text Area */
+#textarea {
+  outline: none;
+  border-top: 0px solid transparent;
+  border-left: 0px solid transparent;
+  border-right: 0px solid transparent;
+  border-bottom: 2px solid rgba(136, 136, 136, 0.5);
+  line-height: 20px;
+  min-width: 70vw;
+  /* max-width: 90vw; */
+  min-height: 17vh;
+  /* max-height: 20vh; */
+  padding: 20px;
+  color: #888;
+  font-size: 1.1rem;
+}
+
+#textarea:focus {
+  border-bottom: 2px solid rgba(220, 20, 60, 0.2);
+  border-radius: 10px;
+}
+
+/* Button */
+.btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+.style-btn {
+  padding: 8px;
+  margin: 0px 3px 5px 0px;
+  background-color: transparent;
+  border: 1px solid #888;
+  /* border-top-right-radius: 15px; */
+  border-radius: 10px 2px;
+}
+
+.style-btn:hover {
+  cursor: pointer;
+  /* color: red; */
+  background-color: rgb(124, 155, 214);
+  border: none;
+  color: white;
+  transform: scale(1.1);
+  transition: transform ease-in-out 0.5s, background-color ease-in 0.1s;
+}
+
+/* Your Notes Header */
+.notes-added {
+  padding: 10px;
+  margin: 0px 15px;
+  border-bottom: 2px solid rgba(136, 136, 136, 0.5);
+}
+.notes-added > h1 {
+  color: cornflowerblue;
+  /* text-shadow: 2px 2px 2px rgba(136, 136, 136, 0.5); */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Display Notes in Card Format */
+#display-notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.card {
+  flex-wrap: wrap;
+  padding: 10px;
+  margin-top: 10px;
+  width: 30%;
+  overflow: hidden;
+  border-radius: 0px 10px 0px 10px;
+  border: 1px solid rgba(136, 136, 136, 0.5);
+}
+.card p {
+  font-size: 14px;
+  line-height: 18px;
+}
+.card > button {
+  margin-top: 10px;
+  /* width: 40%; */
+}
+.card:hover {
+  box-shadow: 2px 1px 5px #888888;
+  /* transform: translateY(-1px); */
+  transform: scale(1.05);
+  transition: transform ease-in 0.3s;
+}
+
+/* Notes not Added  */
+.no-notes {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-top: 10px;
+  color: #888888;
+  text-indent: 20px;
+}
+
+/* Media Query */
+@media only screen and (max-width: 350px) {
+  .heading > h1 {
+    font-size: 1.2rem;
+  }
+
+  #textarea {
+    line-height: 10px;
+    padding: 10px;
+    color: #888;
+    font-size: 1rem;
+    max-width: 5vw;
+    min-height: 10vh;
+  }
+  .style-btn {
+    font-size: 0.7rem;
+    padding: 5px;
+  }
+  .notes-added > h1 {
+    font-size: 1.2rem;
+  }
+  .no-notes {
+    font-size: 1rem;
+  }
+  .card {
+    padding: 5px;
+    /* font-size: 0.9rem; */
+  }
+}
+
+@media only screen and (min-width: 351px) and (max-width: 450px) {
+  .heading > h1 {
+    font-size: 1.4rem;
+  }
+
+  #textarea {
+    line-height: 10px;
+    padding: 10px;
+    color: #888;
+    font-size: 1rem;
+    max-width: 5vw;
+    min-height: 10vh;
+  }
+  .style-btn {
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding: 5px;
+  }
+  .notes-added > h1 {
+    font-size: 1.2rem;
+  }
+  .no-notes {
+    font-size: 1rem;
+  }
+}
