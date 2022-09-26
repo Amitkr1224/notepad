@@ -45,15 +45,8 @@ saveBtn.addEventListener("click", saveNote);
 
 //! Copy
 copyBtn.addEventListener("click", () => {
-  // let selectedText = window.getSelection().toString();
-  // console.log(selectedText);
-  textArea.select();
-  // navigator.clipboard
-  // .writeText(textArea.value)
-  // .then((clipText) => console.log(clipText));
-  // let selectedText = document.getSelection().toString();
-  // console.log(selectedText);
-  document.execCommand("copy");
+  let selectedText = window.getSelection().toString();
+  navigator.clipboard.writeText(selectedText);
 });
 
 //! Bold
