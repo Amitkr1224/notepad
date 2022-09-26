@@ -1,5 +1,5 @@
 # Notepad
-Demo [Try it] (https://amitkr1224.github.io/notepad/).
+Demo [Try it](https://amitkr1224.github.io/notepad/).
 
 # Features
 - User Can Type his notes and save it by clicking it on save button.
