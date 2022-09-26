@@ -46,7 +46,13 @@ saveBtn.addEventListener("click", saveNote);
 //! Copy
 copyBtn.addEventListener("click", () => {
   let selectedText = window.getSelection().toString();
-  navigator.clipboard.writeText(selectedText);
+  if(selectedText.length > 0){
+    navigator.clipboard.writeText(selectedText);
+  }
+  else{
+    alert("❌ Text Not Selected ❌");
+  }
+  
 });
 
 //! Bold
