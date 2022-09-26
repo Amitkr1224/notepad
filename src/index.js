@@ -1,9 +1,9 @@
-let textArea = document.getElementById("textarea");
-let title = document.getElementById("input-title");
-let saveBtn = document.getElementById("save-btn");
-let copyBtn = document.getElementById("copy-btn");
-let boldBtn = document.getElementById("bold-btn");
-let underlineBtn = document.getElementById("under-btn");
+let textArea = document.querySelector("#textarea");
+let title = document.querySelector("#input-title");
+let saveBtn = document.querySelector("#save-btn");
+let copyBtn = document.querySelector("#copy-btn");
+let boldBtn = document.querySelector("#bold-btn");
+let underlineBtn = document.querySelector("#under-btn");
 
 //! Variables and Array
 let notes = [];
@@ -21,6 +21,7 @@ title.addEventListener("change", (e) => {
 });
 
 //! Save Button handler
+
 function saveNote() {
   if (textAreaInput.length > 0 && titleInput.length > 0) {
     notesToAdd = {
@@ -30,7 +31,10 @@ function saveNote() {
     notes.push(notesToAdd);
     textArea.value = "";
     title.value = "";
+    textAreaInput = "";
+    titleInput = "";
     display();
+    title.focus();
   } else if (titleInput.length === 0) {
     alert("❌ Title is Empty ❌");
   } else {
@@ -41,6 +45,8 @@ saveBtn.addEventListener("click", saveNote);
 
 //! Copy
 copyBtn.addEventListener("click", () => {
+  // let selectedText = window.getSelection().toString();
+  // console.log(selectedText);
   textArea.select();
   // navigator.clipboard
   // .writeText(textArea.value)
@@ -59,12 +65,9 @@ function boldFunc() {
     let newText = selectedText.replace("<b>", "");
     newText = newText.replace("</b>", "");
     textAreaInput = textAreaInput.replace(selectedText, newText);
-    // notesToAdd = newText;
   } else {
     let newText = `<b>${selectedText}</b>`;
-    console.log(newText);
     textAreaInput = textAreaInput.replace(selectedText, newText);
-    // textAreaInput = newText;
   }
 }
 
@@ -73,44 +76,41 @@ boldBtn.addEventListener("click", boldFunc);
 //! UnderLine
 function underLineFunc() {
   let selectedText = window.getSelection().toString();
-  // console.log(selectedText);
   if (selectedText === "") {
     alert("❌ Text Not Selected ❌");
   } else if (selectedText.includes("<u>")) {
     let newText = selectedText.replace("<u>", "");
     newText = newText.replace("</u>", "");
     textAreaInput = textAreaInput.replace(selectedText, newText);
-    // textAreaInput = newText;
   } else {
     let newText = `<u>${selectedText}</u>`;
     textAreaInput = textAreaInput.replace(selectedText, newText);
-    // textAreaInput = newText;
   }
 }
 
 underlineBtn.addEventListener("click", underLineFunc);
 
-//! Checking KeyPress of Ctrl + B & Ctrl + U
-let keysPressed = {};
+//! Checking KeyPress of Ctrl + B & Ctrl + U  Not Working
+// let keysPressed = {};
 
-textArea.addEventListener("keydown", (event) => {
-  keysPressed[event.keyCode] = true;
+// textArea.addEventListener("keydown", (event) => {
+// keysPressed[event.key] = true;
 
-  if (keysPressed["17"] && event.keyCode === 66) {
-    // alert(event.key);
-    boldFunc();
-    // console.log("Ctrl + B");
-  }
-  if (keysPressed["17"] && event.keyCode === 85) {
-    // alert(event.key);
-    underLineFunc();
-    // console.log("Ctrl + B");
-  }
-});
+// if (keysPressed["17"] && event.key === "b") {
+// alert(event.key);
+// boldFunc();
+// console.log("Ctrl + B");
+// }
+// if (keysPressed["17"] && event.keyCode === 85) {
+//   alert(event.key);
+//   underLineFunc();
+//   // console.log("Ctrl + B");
+// }
+// });
 
-textArea.addEventListener("keyup", (event) => {
-  delete keysPressed[event.keyCode];
-});
+// textArea.addEventListener("keyup", (event) => {
+//   delete keysPressed[event.key];
+// });
 
 //! Switch Button Handle
 function switchCase(index) {
@@ -140,19 +140,19 @@ function display() {
     notesToBeDisplay += `
     <div class="card" id=${index} onclick="switchCase(this.id)" >
     <span>${element.title}</span>
-    <p>${truncate(element.summary, 50)}</p>
+    <p>${truncate(element.summary, 100)}</p>
     </div>`;
   });
 
   if (notes.length !== 0) {
-    document.getElementById("display-notes").innerHTML = notesToBeDisplay;
+    document.querySelector("#display-notes").innerHTML = notesToBeDisplay;
   }
 }
 
 //! Overlay
 function on() {
-  document.getElementById("overlay").style.display = "block";
+  document.querySelector("#overlay").style.display = "block";
 }
 function off() {
-  document.getElementById("overlay").style.display = "none";
+  document.querySelector("#overlay").style.display = "none";
 }
