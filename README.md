@@ -5,6 +5,7 @@ Demo [Try it](https://amitkr1224.github.io/notepad/).
 - User Can Type his notes and save it by clicking it on save button.
 - Using bold button user can bold the selected text, and also using underline button underline the selected text.
 - Using copy button user can copy the text which is inside input box.
+- Clicking on card it will show data by overlaying all other card and again clicking on screen it will disable the overlay effect. 
 
 # 🛠 Technologies Used
 HTML, CSS, JavaScript
